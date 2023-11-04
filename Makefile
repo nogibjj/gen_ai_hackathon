@@ -1,6 +1,10 @@
+environment: 
+	python -m venv sketch &&\
+		source sketch/bin/activate
+
+
 install:
 	pip install --upgrade pip &&\
-			pip install -r alt_req.txt &&\
 			pip install -r requirements.txt
 				
 
@@ -11,4 +15,4 @@ lint:
 	# pylint --disable=R,C --ignore-patterns=test_.*?py *.py dblib
 	# pylint --disable=R,C *.py mylib/*.py
 
-all: install format
+all: environment install
