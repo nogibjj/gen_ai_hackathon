@@ -1,9 +1,13 @@
+from dotenv import load_dotenv
 import openai
 import os
 import streamlit as st
 
+
 # Set up OpenAI API credentials
-openai.api_key = os.getenv("YOUR_API_KEY")
+load_dotenv()
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Define function to generate text completions
 def generate_completion(prompt):
