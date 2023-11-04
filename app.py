@@ -23,6 +23,7 @@ def generate_image(prompt):
         prompt=prompt,
         n = 1,
         size = '512x512',
+        
     )
     image_url = response['data'][0]['url']
     return image_url
