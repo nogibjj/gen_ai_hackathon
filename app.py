@@ -70,7 +70,7 @@ def app():
     if st.button("Generate sketch"):        
         # feed the dictionary into the prompt and ask the api to create prompt to make a sketch from the new_dict
         prompt = f"""
-        Create a prompt for DALL-E to generate a front-facing sketch of a suspect based on the following description:
+        Create a prompt for DALL-E to generate a front-facing human sketch of a suspect based on the following description:
         Face Shape: {prompt_face_shape}
         Chin Shape: {prompt_chin_shape}
         Jaw Line: {prompt_jaw_line}
