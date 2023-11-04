@@ -68,38 +68,22 @@ def app():
     
     # Generate text completion
     if st.button("Generate sketch"):        
-        # feed the dictionary into the prompt and ask the api to create prompt to make a sketch from the new_dict
-        prompt = f"""
-        Create a prompt for DALL-E to generate a front-facing sketch of a suspect based on the following description:
-        Face Shape: {prompt_face_shape}
-        Chin Shape: {prompt_chin_shape}
-        Jaw Line: {prompt_jaw_line}
-        Skin Complexion: {prompt_skin_complexion}
-        Skin Texture: {prompt_skin_texture}
-        Skin Notable Features: {prompt_skin_notable_features}
-        Mouth Size: {prompt_mouth_size}
-        Lip Shape: {prompt_lip_shape}
-        Ears Size: {prompt_ears_size}
-        Ears Shape: {prompt_ears_shape}
-        Ears Notable Features: {prompt_ears_notable_features}
-        Eyes Size: {prompt_eyes_size}
-        Eyes Shape: {prompt_eyes_shape}
-        Eyes Color: {prompt_eyes_color}
-        Eyebrows Type: {prompt_eyebrows_type}
-        Eyelashes Type: {prompt_eyelashes_type}
-        Nose Size: {prompt_nose_size}
-        Nose Shape: {prompt_nose_shape}
-        Hair Length: {prompt_hair_length}
-        Hair Style: {prompt_hair_style}
-        Hair Color: {prompt_hair_color}
-        Hairline: {prompt_hairline}
-        Also add the following additional features: {prompt_additional}
-        """
-        completion = generate_completion(prompt)
-        with col_2:
-            st.header("Sketch")
-            st.text(completion)
-            st.image(generate_image(completion), width=500)
+        descriptive_paragraph = (
+        f"Create a front-facing sketch of a suspect with the following attributes: "
+        f"A {prompt_face_shape} face shape with a {prompt_chin_shape} chin and a {prompt_jaw_line} jawline. "
+        f"The skin complexion is {prompt_skin_complexion} with a {prompt_skin_texture} texture and notable features such as {prompt_skin_notable_features}. "
+        f"The suspect has {prompt_eyes_size} eyes that are {prompt_eyes_shape} in shape and {prompt_eyes_color} in color, under {prompt_eyebrows_type} eyebrows with {prompt_eyelashes_type} eyelashes. "
+        f"A {prompt_nose_size}, {prompt_nose_shape} nose sits above a {prompt_mouth_size} mouth with {prompt_lip_shape} lips. "
+        f"The hair is {prompt_hair_length} and {prompt_hair_style} in style, colored {prompt_hair_color}, with a {prompt_hairline} hairline. "
+        f"Their ears are {prompt_ears_size} and {prompt_ears_shape} in shape, with features like {prompt_ears_notable_features}. "
+        f"{prompt_additional}."
+    )
+
+    # Generate the image using DALL-E and display it
+    image_url = generate_image(descriptive_paragraph)
+    with col_2:
+        st.header("Sketch")
+        st.image(image_url, width=500)
 
 # Run Streamlit app
 if __name__ == "__main__":
