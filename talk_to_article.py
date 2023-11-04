@@ -14,5 +14,4 @@ print(query)
 
 loader = TextLoader('ForensicGuide.txt')
 index = VectorstoreIndexCreator().from_loaders([loader])
-print("AAAAAAA")
 print(index.query,llm=ChatOpenAI())

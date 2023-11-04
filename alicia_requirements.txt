@@ -1,0 +1,4 @@
+langchain = 0.0.330
+tiktoken = 0.5.1
+chromadb = 4.65.0
+
