@@ -4,7 +4,6 @@ import tensorflow as tflow
 import matplotlib.pyplot as plt
 from deepface import DeepFace
 import os
-import json
 
 # Apparently for monitoring, it only shows in terminals
 # tflow.debugging.set_log_device_placement(True)
@@ -23,15 +22,15 @@ print(tflow.config.list_physical_devices("CPU"))
 # )
 pwd = os.getcwd()
 print(pwd)
-# img = cv2.imread(
-#     r"..\downloads\rdface.jpg"
-# )
+img = cv2.imread(
+    r"downloads"  + os.sep + "rdface.jpg"
+)
 
 # list contents in the directory
-print(os.listdir(r"classifiers"))
+print(os.listdir(r"downloads"))
 
 # loading image
-faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades +'classifiers\haarcascade_frontalface_default.xml')
+faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 
 # ####################
@@ -39,15 +38,16 @@ faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades +'classifiers\haarcasc
 # # Leave open for future fine tuning 
 # # by isolating specific features
 
-
-
 # ####################
 
-# print("hello" ,img)
-# # showing image using plt
-# plt.imshow(img)
-# color_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-# plt.imshow(color_img)
+# showing image using plt
+plt.imshow(img)
+color_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+plt.imshow(color_img)
+
+
+
+
 
 # prediction = DeepFace.analyze(color_img)
 
