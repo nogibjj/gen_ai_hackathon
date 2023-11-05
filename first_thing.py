@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import openai
 import os
 import streamlit as st
+import requests
 
 load_dotenv()
 
@@ -22,9 +23,19 @@ st.markdown(
     ## Instructions
     1. Type in the text box to generate a base face.
     2. Click the button to generate a base face.
-    3. Click the button again to generate a new base face.
+    3. Move to the next page by clicking the sidebar.
     """
 )
+    
+def save_my_image(image_url, file_path = 'img/recent_img.png'):
+    # Use requests to download the image
+    # Write the image to a file in binary mode
+    # Hint: You want to use a 'with' statement
+    data = requests.get(image_url).content
+    f = open('img/img.png','wb')
+    f.write(data)
+    f.close()
+    return None
 
 def generate_image(prompt):
     response = openai.Image.create(
@@ -33,6 +44,7 @@ def generate_image(prompt):
         size = '512x512',
     )
     image_url = response['data'][0]['url']
+    save_my_image(image_url)
     return image_url
 
 def app():
@@ -61,7 +73,14 @@ def app():
         elif prompt_sex == "woman":
             dalle_prompt = f"""
                 Create an image of a {prompt_sex} in her {prompt_age} with a 
-                {prompt_face_structure} face structure. Se has {prompt_eyes} 
+                {prompt_face_structure} face structure. She has {prompt_eyes} 
+                eyes, a {prompt_nose} nose, and {prompt_mouth_lips} mouth and 
+                lips.
+            """
+        else:
+            dalle_prompt = f"""
+                Create an image of a {prompt_sex} in their {prompt_age} with a 
+                {prompt_face_structure} face structure. They have {prompt_eyes} 
                 eyes, a {prompt_nose} nose, and {prompt_mouth_lips} mouth and 
                 lips.
             """
