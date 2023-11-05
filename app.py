@@ -79,11 +79,16 @@ def app():
         f"{prompt_additional}."
     )
 
-    # Generate the image using DALL-E and display it
-    image_url = generate_image(descriptive_paragraph)
-    with col_2:
-        st.header("Sketch")
-        st.image(image_url, width=500)
+        st.text("Generated Prompt:")
+        st.write(descriptive_paragraph)
+
+        # Generate the image using DALL-E and display it
+        image_url = generate_image(descriptive_paragraph)
+        with col_2:
+            st.header("Sketch")
+            st.markdown(descriptive_paragraph
+        )
+            st.image(image_url, width=500)
 
 # Run Streamlit app
 if __name__ == "__main__":
