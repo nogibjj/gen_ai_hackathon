@@ -1,0 +1,8 @@
+openai
+jupyter
+notebook
+panel
+python-dotenv
+tensorflow[and-cuda]
+matplotlib
+opencv-python == 4.7.0.68
