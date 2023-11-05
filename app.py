@@ -9,7 +9,7 @@ load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def get_my_image(image_url, file_path = 'downloads/recent_img.png'):
+def save_my_image(image_url, file_path = 'downloads/recent_img.png'):
 # Use requests to download the image
     # Write the image to a file in binary mode
     # Hint: You want to use a 'with' statement
@@ -39,6 +39,7 @@ def generate_image(prompt):
         size = '512x512',
     )
     image_url = response['data'][0]['url']
+    save_my_image(image_url)
     return image_url
 
 # Define Streamlit app
