@@ -84,7 +84,7 @@ def app():
             st.write(dalle_prompt)
             # eric call the mask function here, and make sure that you save the mask.png file in the img folder as mask.png
             masker("img/img.png", "img/mask.png")
-            st.image(update_image("img/img.png", "img/mask.png", dalle_prompt))
+            st.image(update_image("img/img.png", "mask.png", dalle_prompt))
 
 if __name__ == "__main__":
     app()
