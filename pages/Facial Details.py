@@ -4,6 +4,7 @@ import os
 import streamlit as st
 import requests
 from PIL import Image
+from source.mask_image import masker
 
 load_dotenv()
 
@@ -82,6 +83,7 @@ def app():
             st.text("The prompt is:")
             st.write(dalle_prompt)
             # eric call the mask function here, and make sure that you save the mask.png file in the img folder as mask.png
+            masker("img/img.png", "img/mask.png")
             st.image(update_image("img/img.png", "img/mask.png", dalle_prompt))
 
 if __name__ == "__main__":
