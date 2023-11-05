@@ -4,6 +4,7 @@ import os
 import streamlit as st
 import requests
 from PIL import Image
+from source.mask_image import masker
 
 load_dotenv()
 
@@ -49,6 +50,14 @@ def update_image(image, mask, prompt):
     save_my_image(image_url)
     return image_url
 
+def change_mask_format(mask_path):
+    mask = Image.open(mask_path)
+    mask = mask.convert('RGBA')
+    mask = mask.convert('LA')
+    mask = mask.convert('L')
+    mask.save(mask_path)
+    return None
+
 def app():
     col_1, col_2 = st.columns(2)
     
@@ -75,10 +84,13 @@ def app():
             """
         
         with col_2:
-            st.text("The prompt is:")
+            st.text("")
+            st.text("The description is:")
             st.write(dalle_prompt)
             # eric call the mask function here, and make sure that you save the mask.png file in the img folder as mask.png
-            st.image(update_image("img/img.png", "img/mask.png", dalle_prompt))
+            masker("img/img.png", "img/mask.png")
+            change_mask_format("mask.png")
+            st.image(update_image("img/img.png", "mask.png", dalle_prompt))
 
 if __name__ == "__main__":
     app()
