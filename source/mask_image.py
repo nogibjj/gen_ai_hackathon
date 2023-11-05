@@ -47,7 +47,7 @@ def save_masked_image(img_path):
     plt.savefig("masked_image.png")
 
 
-def masker(img_path):
+def masker(img_path, output_path="mask.png"):
     """Creates a mask of image"""
 
     img = cv2.imread(img_path)
@@ -80,6 +80,6 @@ def masker(img_path):
     # cv2.imwrite("mask.png", img_rgb)
     plt.imshow(img_rgb)
     # save the image
-    plt.savefig("mask.png")
+    plt.savefig(output_path)
 
     return img_rgb
