@@ -2,12 +2,26 @@ from dotenv import load_dotenv
 import openai
 import os
 import streamlit as st
-
+import requests
 
 # Set up OpenAI API credentials
 load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
+def save_my_image(image_url, file_path = 'downloads/recent_img.png'):
+# Use requests to download the image
+    # Write the image to a file in binary mode
+    # Hint: You want to use a 'with' statement
+    data = requests.get(image_url).content
+
+    f = open('downloads/img.png','wb')
+
+    f.write(data)
+
+    f.close()
+
+    return None
 
 # Define function to generate text completions
 def generate_completion(prompt):
@@ -25,6 +39,7 @@ def generate_image(prompt):
         size = '512x512',
     )
     image_url = response['data'][0]['url']
+    save_my_image(image_url)
     return image_url
 
 # Define Streamlit app
