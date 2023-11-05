@@ -52,6 +52,9 @@ def masker(img_path, output_path="mask.png"):
 
     img = cv2.imread(img_path)
 
+    # get image shape
+    height, width, channels = img.shape
+
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     # consider moving to root folder
@@ -76,6 +79,9 @@ def masker(img_path, output_path="mask.png"):
         0,
         0,
     ]
+
+    # make the image dimensions of img_rgb the same as the original image
+    img_rgb = cv2.resize(img_rgb, (width, height))
 
     # cv2.imwrite("mask.png", img_rgb)
     plt.imshow(img_rgb)
