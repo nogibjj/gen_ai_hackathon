@@ -10,6 +10,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 audio_file= open("/workspaces/gen_ai_hackathon/New Recording 55.m4a", "rb") ##audio file input 
 transcript = openai.Audio.transcribe("whisper-1", audio_file, response_format="text")
+print(transcript)
 
 # Define a function to generate a DALL-E prompt from the transcript using GPT-3.5
 def create_chat_for_dalle_prompt(transcription_text):

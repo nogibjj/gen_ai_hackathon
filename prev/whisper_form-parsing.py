@@ -1,3 +1,5 @@
+#check what the prompt output is?
+#we can add gpt wrapper to this one and send it to dall e
 from dotenv import load_dotenv
 import openai
 import os

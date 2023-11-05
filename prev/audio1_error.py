@@ -1,3 +1,5 @@
+#Image generation: Byte has no object name issue 
+
 from dotenv import load_dotenv
 import openai
 import os
