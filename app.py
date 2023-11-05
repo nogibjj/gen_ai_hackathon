@@ -65,22 +65,24 @@ def app():
     # Generate text completion
     if st.button("Generate sketch"):                
         text1 = f"""
-        Create an image of a {prompt_body_type}, powerfully built {prompt_sex} in 
-        his {prompt_age} age with a {prompt_demeanor} demeanor. 
-        He has an {prompt_face_shape} face with a {prompt_expression} expression,
+        Create an image of a {prompt_body_type}, {prompt_sex} in 
+        his/her {prompt_age} age with a {prompt_demeanor} demeanor. 
+        He/she has an {prompt_face_shape} face with a {prompt_expression} expression,
         a {prompt_chin_shape} chin adorned with a {prompt_moustache} mustache, and a 
         {prompt_jaw_line} jawline framed by a {prompt_beard} beard.
-        His hair is {prompt_hair}, revealing a {prompt_skin_complexion} complexion.
-        His {prompt_eyes_size} eyes convey a protective nature, 
+        His/her hair is {prompt_hair}, revealing a {prompt_skin_complexion} complexion.
+        His/her {prompt_eyes_size} eyes convey a protective nature, 
         sitting beneath {prompt_eyebrows_type} eyebrows. The nose is {prompt_nose_size} and 
-        {prompt_nose_shape}, and the lips are {prompt_lip_shape}, contributing to his 
+        {prompt_nose_shape}, and the lips are {prompt_lip_shape}, contributing to his/her 
         thoughtful appearance. A notable feature is a {prompt_additional}. 
-        He is wearing a {prompt_clothes}.
+        He/she is wearing a {prompt_clothes}.
         """
 
         with col_2:
             st.header("Sketch")
             # st.code(completion)
+            st.text("The Prompt:")
+            st.write(text1)
             st.image(generate_image(text1), width=500)
 
 # Run Streamlit app
