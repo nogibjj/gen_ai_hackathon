@@ -56,36 +56,37 @@ def masker(img_path, output_path="mask.png"):
     height, width, channels = img.shape
 
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    color_image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     # consider moving to root folder
     faceCascade = cv2.CascadeClassifier(
         cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
     )
 
-    face = cascade_factor_wrapper(gray_image, faceCascade, 1.1, 5, (40, 40))
-
-    print(face)
-    print(face[0])
+    face = cascade_factor_wrapper(color_image, faceCascade, 1.1, 5, (40, 40))
 
     for x, y, w, h in face:
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 0), 4)
 
-    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-    img_rgb[
-        face[0][1] : face[0][1] + face[0][3], face[0][0] : face[0][0] + face[0][2]
-    ] = [
+    img[face[0][1] : face[0][1] + face[0][3], face[0][0] : face[0][0] + face[0][2]] = [
         0,
         0,
         0,
     ]
 
     # make the image dimensions of img_rgb the same as the original image
-    img_rgb = cv2.resize(img_rgb, (width, height))
+    img_rgb = cv2.resize(color_image, (width, height))
 
-    # cv2.imwrite("mask.png", img_rgb)
-    plt.imshow(img_rgb)
+    # cv2.imwrite("mask.png", color_image)
+    # cv2.imwrite("gray.png", gray_image)
+    cv2.imwrite("mask.png", img)
+    # plt.imshow(img_rgb)
     # save the image
-    plt.savefig(output_path)
+    # plt.savefig(output_path)
 
     return img_rgb
+
+
+# masker("img\img.png", "img\mask.png")
