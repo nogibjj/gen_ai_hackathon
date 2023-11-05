@@ -3,26 +3,28 @@ import openai
 import os
 import streamlit as st
 import requests
+from PIL import Image
 
 load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-st.set_page_config(layout="wide")
-st.title("Base Facial Features")
+st.set_page_config(
+    page_title="Facial Details",
+    # give me all the possible icons
+    page_icon="🎭",
+    layout="wide"
+    )
+st.sidebar.header("Facial Details")
+st.sidebar.write("Fill out the following form to generate a police sketch of a suspect.")
+st.title("Detail Facial Features")
 
-st.markdown(
-    """
-    This part will update the details from our base picture of the face. 
-    This will be used to generate the rest of the face.
-    """
-)
-
-st.markdown(
+st.sidebar.markdown(
     """
     ## Instructions
-    1. Type in the text box to generate a base face.
-    2. Click the button to generate a base face.
+    1. Type in the text box to update more details of the face.
+    2. Click the button to update the face.
+    3. Move to the next page by clicking the sidebar.
     """
 )
     
@@ -48,25 +50,6 @@ def update_image(image, mask, prompt):
     save_my_image(image_url)
     return image_url
 
-# create a function to use OpenCV to create a mask of the image in img directory
-def create_mask(image):
-    # import OpenCV
-    import cv2
-    # read the image
-    img = cv2.imread(image)
-    # convert the image to grayscale
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    # threshold the image
-    thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
-    # apply morphology to clean up small spots
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
-    close = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel, iterations=2)
-    # invert the close image
-    result = 255 - close
-    # save the result
-    cv2.imwrite('img/mask.png', result)
-    return None
-
 def app():
     col_1, col_2 = st.columns(2)
     
@@ -82,17 +65,24 @@ def app():
             prompt_expression = st.text_input('Expression', placeholder='smiling, frowning, .etc')
             prompt_distinguishing_features = st.text_input('Distinguishing Features', placeholder='tattoos, scars, .etc')
 
+    with col_2:
+        image = Image.open('img/img.png')
+
+        st.image(image, caption="Image from previous iteration", use_column_width=True)
+
     if st.button("Generate Sketch"):
         dalle_prompt = f"""
-                The individual has a {prompt_hair} hair style, and have {prompt_facial_hair} visible.
+                Update the hair style to be {prompt_hair} and with {prompt_facial_hair} visible.
                 With a {prompt_complexion} complexion, and {prompt_demeanor} demeanor.
                 The expression they showed is {prompt_expression}, and they have {prompt_distinguishing_features}.
             """
         
         with col_2:
+            st.text("")
             st.text("The prompt is:")
             st.write(dalle_prompt)
-            st.image(update_image("img/img.png","img/mask.png",dalle_prompt))
+            # eric call the mask function here, and make sure that you save the mask.png file in the img folder as mask.png
+            st.image(update_image("img/img.png", "img/mask.png", dalle_prompt))
 
 if __name__ == "__main__":
     app()

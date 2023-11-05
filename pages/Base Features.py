@@ -8,17 +8,16 @@ load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Base Features",
+    page_icon="🎭",
+    layout="wide"
+    )
+st.sidebar.header("Base Features")
+st.sidebar.write("Fill out the following form to generate a police sketch of a suspect.")
 st.title("Base Facial Features")
 
-st.markdown(
-    """
-    This part of sketching is to generate a base picture of the face. 
-    This will be used to generate the rest of the face.
-    """
-)
-
-st.markdown(
+st.sidebar.markdown(
     """
     ## Instructions
     1. Type in the text box to generate a base face.
