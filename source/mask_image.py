@@ -83,8 +83,3 @@ def masker(img_path):
     plt.savefig("mask.png")
 
     return img_rgb
-
-
-#
-img = cv2.imread(r"..\downloads" + os.sep + "rdface.jpg")
-masker(r"..\downloads" + os.sep + "rdface.jpg")
