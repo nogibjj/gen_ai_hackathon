@@ -1,3 +1,10 @@
+env:
+	python3 -m venv .env &&\
+			source .env/bin/activate &&\
+			pip install --upgrade pip &&\
+			pip install -r alt_req.txt &&\
+			pip install -r requirements.txt
+
 install:
 	pip install --upgrade pip &&\
 			pip install -r alt_req.txt &&\
@@ -5,10 +12,9 @@ install:
 				
 
 format:	
-	black *.py sourcel/*py 
+	black *.py source/*py 
 
 lint:
-	# pylint --disable=R,C --ignore-patterns=test_.*?py *.py dblib
-	# pylint --disable=R,C *.py mylib/*.py
+	pylint --disable=R,C *.py source/*.py pages/*.py
 
-all: install format
+all: install format lint
