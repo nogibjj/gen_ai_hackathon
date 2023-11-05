@@ -3,3 +3,5 @@ jupyter
 notebook
 panel
 python-dotenv
+deepface
+tensorflow[and-cuda]
